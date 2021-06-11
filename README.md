@@ -7,7 +7,8 @@
 4. [Objectives](#objectives)
    - [Further Exploration Objectives](#further-exploration-objectives)
 5. [Tests](#tests)
-   - [convertNumToRobogerSpeak](#describe-convertnumtorobogerspeak)
+   - [convertNumToRobogerSpeak()](#describe-convertnumtorobogerspeak)
+   - [talkToUsMrRoboger()](#describe-talktousmrroboger)
 6. [Sources and Libraries](#sources-and-libraries)
    - [External Libraries Used](#external-libraries-used)
 
@@ -18,7 +19,7 @@ This is my third independent project for the Epicodus bootcamp program. The goal
 Tests will be utilized to check behavior.
 
 - **Author**: Allister Moon Kays
-- **Live Website Link**: [https://alyxmoon.github.io/epicodus-project02-mr-robogers-neighborhood/](https://alyxmoon.github.io/epicodus-project02-mr-robogers-neighborhood/)
+- **Live Website Link**: [https://alyxmoon.github.io/epicodus-project03-mr-robogers-neighborhood/](https://alyxmoon.github.io/epicodus-project03-mr-robogers-neighborhood/)
 - **Copyright**: MIT License
 
 ## Setting Up The Project
@@ -66,6 +67,8 @@ To set up `eslint` though, you need the following:
 - Add a second form field that takes a name as an input. Then update the output so that the program states "Won't you be my neighbor, {name}?" instead of "Won't you be my neighbor?"
 
 ## Tests
+
+The tests have all been implemented in the code, they can be found in the `js/tests` directory. They will run in the javascript console when the page is loaded, if you want to see all of the test results live you should open the page and look there.
 
 #### Describe: convertNumToRobogerSpeak()
 
@@ -175,6 +178,38 @@ Code: convertNumToRobogerSpeak(32),
 description: 'It should turn 40 into "40"',
 expected: '40',
 Code: convertNumToRobogerSpeak(40),
+```
+
+#### Describe: talkToUsMrRoboger()
+
+```
+description: 'It should return correctly with 0',
+expected: ['0'],
+Code: talkToUsMrRoboger(0),
+```
+
+```
+description: 'It should return correctly with 1',
+expected: ['0', 'Beep!'],
+Code: talkToUsMrRoboger(1),
+```
+
+```
+description: 'It should return correctly with 2',
+expected: ['0', 'Beep!', 'Boop!'],
+Code: talkToUsMrRoboger(2),
+```
+
+```
+description: 'It should return correctly with 3',
+expected: ['0', 'Beep!', 'Boop!', 'Won\'t you be my neighbor?'],
+Code: talkToUsMrRoboger(3),
+```
+
+```
+description: 'It should return correctly with 4',
+expected: ['0', 'Beep!', 'Boop!', 'Won\'t you be my neighbor?', '4'],
+Code: talkToUsMrRoboger(4),
 ```
 
 ## Sources and Libraries
