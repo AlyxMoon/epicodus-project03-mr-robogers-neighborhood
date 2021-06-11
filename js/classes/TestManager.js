@@ -19,7 +19,7 @@ class TestManager {
         description: `${func.name}: ${description}`,
         actual,
         expected,
-        valid: actual === expected,
+        valid: this.checkActualEqualsExpected(actual, expected),
       }
     })
   }
@@ -38,6 +38,17 @@ class TestManager {
     }
 
     return results
+  }
+
+  checkActualEqualsExpected (actual, expected) {
+    if (Array.isArray(actual) && Array.isArray(expected)) {
+      return (
+        actual.length === expected.length &&
+        actual.every((a, index) => a === expected[index])
+      )
+    }
+
+    return actual === expected
   }
 
   logResult ({
