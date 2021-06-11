@@ -7,3 +7,30 @@ svg {
   width: 300px;
   height: 300px;
 }
+
+.robot-head-outer {
+  fill: none;
+  stroke: #3FB0AC;
+}
+
+.robot-head-inner {
+  fill: #3FB0AC33;
+  stroke: #3FB0AC;
+}
+
+.robot-ear-left, .robot-ear-right {
+  stroke: #3FB0AC;
+}
+
+.robot-ear-lobe-left, .robot-ear-lobe-right {
+  fill: #3FB0AC33;
+  stroke: #3FB0AC;
+}
+
+.robot-eye-left, .robot-eye-right {
+  fill: #000000CC;
+}
+
+.robot-mouth {
+  fill: #000000CC;
+}
