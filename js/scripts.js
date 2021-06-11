@@ -29,12 +29,24 @@ const showOutputViaTypewriterEffect = async text => {
   const minDelay = 50
   const maxDelay = 150
 
+  let mouthStep = 0
+  const animationStates = [
+    'M 38,55 C 38,65 65,60 65,55',
+    'M 37,56 C 37,66 67,60 65,54',
+    'M 36,57 C 38,67 68,60 65,53',
+  ]
+
   for (let i = 0; i < text.length; i++) {
     $('#output').text(text.slice(0, i))
+
+    $('.robot-mouth').attr('d', animationStates[mouthStep])
+    if (++mouthStep >= animationStates.length) mouthStep = 0
 
     const delay = Math.floor(Math.random() * (maxDelay - minDelay)) + minDelay
     await waitFor(delay)
   }
+
+  $('.robot-mouth').attr('d', animationStates[0])
 }
 
 const handleUserInput = (testManager) => {
