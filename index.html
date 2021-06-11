@@ -19,6 +19,7 @@
   <script src="js/classes/TestManager.js" defer></script>
   <script src="js/lib/convertNumToRobogerSpeak.js" defer></script>
   <script src="js/lib/talkToUsMrRoboger.js" defer></script>
+  <script src="js/lib/utilities.js" defer></script>
   <script src="js/tests/convertNumToRobogerSpeak.js" defer></script>
   <script src="js/tests/talkToUsMrRoboger.js" defer></script>
   <script src="js/scripts.js" defer></script>
@@ -65,6 +66,15 @@
   </nav>
 
   <main class="container my-5">
+    <section>
+      <p>
+        Welcome to Mr Roboger's Neighborhood! This was an app made for the Epicodus Bootcamp, in week 3. The goal was to make use of our knowledge of arrays, looping, and testing.
+      </p>
+      <p>
+        For this app, we had to make a function. This function would take a number and then return a list of numbers, from 0 to the number provided. But some numbers are replaced by something else! Curious to find out more? Try entering a number in the form below!
+      </p>
+    </section>
+
     <section class="input-section">
       <div class="card">
         <header class="card-header">
@@ -82,15 +92,6 @@
               <button type="submit" class="btn btn-primary">Talk!</button>
             </div>
           </form>
-
-          <div class="interrupt-wrapper hidden">
-            <div class="interrupt-wrapper-inner mt-3 input-group justify-content-end">
-              <span class="input-group-text bg-light">
-                Uh oh ... Mr Roboger might be talking for awhile.
-              </span>
-              <button class="btn btn-warning">Interrupt Mr Roboger</button>
-            </div>
-          </div>
 
           <hr />
 
@@ -168,7 +169,18 @@
               />
             </svg>
 
-            <div id="output" class="bg-light flex-grow-1 p-3"></div>
+            <div class="d-flex flex-column flex-grow-1 bg-light">
+              <div class="interrupt-wrapper p-3 hidden">
+                <div class="interrupt-wrapper-inner input-group">
+                  <span class="input-group-text bg-light">
+                    Uh oh ... Mr Roboger might be talking for awhile.
+                  </span>
+                  <button class="btn btn-warning">Interrupt Mr Roboger</button>
+                </div>
+              </div>
+              
+              <div id="output" class="bg-light flex-grow-1 p-3"></div>
+            </div>
           </div>
         </div>
       </div>
