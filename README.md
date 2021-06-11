@@ -67,7 +67,115 @@ To set up `eslint` though, you need the following:
 
 ## Tests
 
-#### Describe: convertNumToRobogerSpeak ()
+#### Describe: convertNumToRobogerSpeak()
+
+```
+description: 'It should turn 0 into "0"',
+expected: '0',
+Code: convertNumToRobogerSpeak(0),
+```
+
+```
+description: 'It should turn 1 into "Beep!"',
+expected: 'Beep!',
+Code: convertNumToRobogerSpeak(1),
+```
+
+```
+description: 'It should turn 2 into "Boop!"',
+expected: 'Boop!',
+Code: convertNumToRobogerSpeak(2),
+```
+
+```
+description: 'It should turn 3 into "Won\'t you be my neighbor?"',
+expected: 'Won\'t you be my neighbor?',
+Code: convertNumToRobogerSpeak(3),
+```
+
+```
+description: 'It should turn 4 into "4"',
+expected: '4',
+Code: convertNumToRobogerSpeak(4),
+```
+
+```
+description: 'It should turn 5 into "5"',
+expected: '5',
+Code: convertNumToRobogerSpeak(5),
+```
+
+```
+description: 'It should turn 6 into "6"',
+expected: '6',
+Code: convertNumToRobogerSpeak(6),
+```
+
+```
+description: 'It should turn 7 into "7"',
+expected: '7',
+Code: convertNumToRobogerSpeak(7),
+```
+
+```
+description: 'It should turn 8 into "8"',
+expected: '8',
+Code: convertNumToRobogerSpeak(8),
+```
+
+```
+description: 'It should turn 9 into "9"',
+expected: '9',
+Code: convertNumToRobogerSpeak(9),
+```
+
+```
+description: 'It should turn 10 into "Beep!"',
+expected: 'Beep!',
+Code: convertNumToRobogerSpeak(10),
+```
+
+```
+description: 'It should turn 12 into "Boop!"',
+expected: 'Boop!',
+Code: convertNumToRobogerSpeak(12),
+```
+
+```
+description: 'It should turn 13 into "Won\'t you be my neighbor?"',
+expected: 'Won\'t you be my neighbor?',
+Code: convertNumToRobogerSpeak(13),
+```
+
+```
+description: 'It should turn 14 into "14"',
+expected: '14',
+Code: convertNumToRobogerSpeak(14),
+```
+
+```
+description: 'It should turn 21 into "Boop!"',
+expected: 'Boop!',
+Code: convertNumToRobogerSpeak(21),
+```
+
+```
+description: 'It should turn 23 into "Won\'t you be my neighbor?"',
+expected: 'Won\'t you be my neighbor?',
+Code: convertNumToRobogerSpeak(23),
+```
+
+```
+description: 'It should turn 32 into "Won\'t you be my neighbor?"',
+expected: 'Won\'t you be my neighbor?',
+Code: convertNumToRobogerSpeak(32),
+```
+
+```
+description: 'It should turn 40 into "40"',
+expected: '40',
+Code: convertNumToRobogerSpeak(40),
+```
 
 ## Sources and Libraries
 
