@@ -7,6 +7,7 @@
 4. [Objectives](#objectives)
    - [Further Exploration Objectives](#further-exploration-objectives)
 5. [Tests](#tests)
+   - [convertNumToRobogerSpeak](#describe-convertnumtorobogerspeak)
 6. [Sources and Libraries](#sources-and-libraries)
    - [External Libraries Used](#external-libraries-used)
 
@@ -65,6 +66,8 @@ To set up `eslint` though, you need the following:
 - Add a second form field that takes a name as an input. Then update the output so that the program states "Won't you be my neighbor, {name}?" instead of "Won't you be my neighbor?"
 
 ## Tests
+
+#### Describe: convertNumToRobogerSpeak ()
 
 ## Sources and Libraries
 
