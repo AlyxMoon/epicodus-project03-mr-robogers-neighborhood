@@ -19,7 +19,7 @@ This is my third independent project for the Epicodus bootcamp program. The goal
 Tests will be utilized to check behavior.
 
 - **Author**: Allister Moon Kays
-- **Live Website Link**: [https://alyxmoon.github.io/epicodus-project02-mr-robogers-neighborhood/](https://alyxmoon.github.io/epicodus-project02-mr-robogers-neighborhood/)
+- **Live Website Link**: [https://alyxmoon.github.io/epicodus-project03-mr-robogers-neighborhood/](https://alyxmoon.github.io/epicodus-project03-mr-robogers-neighborhood/)
 - **Copyright**: MIT License
 
 ## Setting Up The Project
