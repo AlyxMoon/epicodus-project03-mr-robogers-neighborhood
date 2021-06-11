@@ -1,13 +1,36 @@
 /* global $, TestManager, talkToUsMrRoboger, addTestsForConvertNumToRobogerSpeak, addTestsForTalkToUsMrRoboger */
 
+const validateUserInput = (userInput) => {
+  let message = ''
+
+  if (Number.isNaN(userInput)) {
+    message = 'Sorry, Mr Roboger doesn\'t understand you at all!'
+  } else if (userInput < 0) {
+    message = 'Sorry, Mr Roboger is too positive to understand a number below 0!'
+  } else if (userInput > 100) {
+    message = 'Sorry, Mr Roboger is too tired to talk with a number that big!'
+  }
+
+  if (message) {
+    $('<div role="alert" />')
+      .appendTo('#output')
+      .addClass('alert alert-danger')
+      .text(message)
+  }
+
+  return !message
+}
+
 const handleUserInput = (testManager) => {
   $('form').on('submit', (event) => {
     event.preventDefault()
+    $('#output').empty()
 
-    const userInput = $('input', event.currentTarget).val()
-    const response = talkToUsMrRoboger(parseInt(userInput))
+    const userInput = parseInt($('input', event.currentTarget).val())
 
-    $('#output').text(response.join(' '))
+    if (validateUserInput(userInput)) {
+      $('#output').text(talkToUsMrRoboger(userInput).join(' '))
+    }
   })
 
   $('#input-toggle-tests').on('change', (event) => {
