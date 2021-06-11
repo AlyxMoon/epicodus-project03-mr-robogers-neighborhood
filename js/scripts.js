@@ -1,40 +1,47 @@
-/* global $, TestManager, talkToUsMrRoboger, addTestsForConvertNumToRobogerSpeak, addTestsForTalkToUsMrRoboger */
+/* global $,
+  TestManager,
+  talkToUsMrRoboger,
+  addTestsForConvertNumToRobogerSpeak,
+  addTestsForTalkToUsMrRoboger,
+  validateUserInput,
+  waitForRange,
+*/
 
-const waitFor = timeInMs => {
-  return new Promise(resolve => window.setTimeout(resolve, timeInMs))
-}
+class MouthAnimationManager {
+  constructor () {
+    this.animationStates = [
+      'M 38,55 C 38,65 65,60 65,53',
+      'M 37,56 C 37,66 67,60 65,52',
+      'M 36,57 C 38,67 68,60 65,51',
+    ]
 
-const validateUserInput = (userInput) => {
-  let message = ''
+    this.sadState = 'M 34,61 C 38,53 63,50 65,57'
 
-  if (Number.isNaN(userInput)) {
-    message = 'Sorry, Mr Roboger doesn\'t understand you at all!'
-  } else if (userInput < 0) {
-    message = 'Sorry, Mr Roboger is too positive to understand a number below 0!'
-  } else if (userInput > 100) {
-    message = 'Sorry, Mr Roboger is too tired to talk with a number that big!'
+    this.state = 0
+    this.sad = false
   }
 
-  if (message) {
-    $('<div role="alert" />')
-      .appendTo('#output')
-      .addClass('alert alert-danger')
-      .text(message)
+  getInitialState () {
+    return this.animationStates[0]
   }
 
-  return !message
+  getNextState () {
+    if (this.sad) return this.sadState
+
+    if (this.state >= this.animationStates.length) {
+      this.state = 0
+    }
+
+    return this.animationStates[this.state++]
+  }
+
+  makeSad () {
+    this.sad = true
+  }
 }
 
 const showOutputViaTypewriterEffect = async text => {
-  const minDelay = 50
-  const maxDelay = 150
-
-  let mouthStep = 0
-  const animationStates = [
-    'M 38,55 C 38,65 65,60 65,53',
-    'M 37,56 C 37,66 67,60 65,52',
-    'M 36,57 C 38,67 68,60 65,51',
-  ]
+  const mouthAnimations = new MouthAnimationManager()
 
   if (text.length > 50) {
     $('.interrupt-wrapper').removeClass('hidden')
@@ -43,86 +50,78 @@ const showOutputViaTypewriterEffect = async text => {
   let interrupted = false
   let handledInterrupted = false
   $('.interrupt-wrapper button').one('click', () => {
-    $(this).attr('disabled', '')
     interrupted = true
+    mouthAnimations.makeSad()
   })
 
   for (let i = 0; i < text.length; i++) {
     if (interrupted && !handledInterrupted) {
       text = text.slice(0, i) + ' ... oh okay, I\'ll stop :('
-      $('.robot-mouth').attr('d', 'M 34,61 C 38,53 63,50 65,57')
       handledInterrupted = true
     }
 
     $('#output').text(text.slice(0, i + 1))
+    $('.robot-mouth').attr('d', mouthAnimations.getNextState())
 
-    if (!interrupted) {
-      $('.robot-mouth').attr('d', animationStates[mouthStep])
-      if (++mouthStep >= animationStates.length) mouthStep = 0
-    }
-
-    const delay = Math.floor(Math.random() * (maxDelay - minDelay)) + minDelay
-    await waitFor(delay)
+    await waitForRange()
   }
 
   $('.interrupt-wrapper').addClass('hidden')
-  $('.interrupt-wrapper button').removeAttr('disabled')
 
   if (!interrupted) {
-    $('.robot-mouth').attr('d', animationStates[0])
+    $('.robot-mouth').attr('d', mouthAnimations.getInitialState())
   }
 }
 
-const handleUserInput = (testManager) => {
+const handleUserInput = () => {
   let outputtingToUser = false
+
+  const setVisualStateForOutput = (outputting = true) => {
+    if (outputting) {
+      outputtingToUser = true
+      $('#output').empty()
+      $('form input, form button').attr('disabled', '')
+    } else {
+      outputtingToUser = false
+      $('form input, form button').removeAttr('disabled')
+    }
+  }
 
   $('form').on('submit', async (event) => {
     event.preventDefault()
     if (outputtingToUser) return
 
-    outputtingToUser = true
-    $('#output').empty()
-    $('form input, form button').attr('disabled', '')
+    setVisualStateForOutput(true)
 
     const userInput = parseInt($('input', event.currentTarget).val())
 
-    if (validateUserInput(userInput)) {
+    const errorMessage = validateUserInput(userInput)
+
+    if (errorMessage) {
+      $('<div role="alert" />')
+        .appendTo('#output')
+        .addClass('alert alert-danger')
+        .text(errorMessage)
+    } else {
       const output = talkToUsMrRoboger(userInput).join(' ')
       await showOutputViaTypewriterEffect(output)
     }
 
-    outputtingToUser = false
-    $('form input, form button').removeAttr('disabled')
+    setVisualStateForOutput(false)
   })
 
-  $('#input-toggle-tests').on('change', (event) => {
-    const testModeActive = event.target.checked
-
+  $('#input-toggle-tests').on('change', () => {
     $('.test-section, .input-section').toggleClass('d-none')
-    $('#output-tests').html('')
-
-    if (testModeActive) {
-      testManager.runTests({
-        loggerArgs: {
-          container: '#output-tests',
-          logToConsole: false,
-        },
-      })
-    }
   })
 }
 
 const main = () => {
   const testManager = new TestManager()
-
   addTestsForConvertNumToRobogerSpeak(testManager)
   addTestsForTalkToUsMrRoboger(testManager)
+  testManager.runTests()
 
-  testManager.runTests({
-    loggerArgs: { container: '' },
-  })
-
-  handleUserInput(testManager)
+  handleUserInput()
 }
 
 $(main)
