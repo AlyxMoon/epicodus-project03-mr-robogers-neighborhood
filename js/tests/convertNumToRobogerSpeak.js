@@ -71,4 +71,60 @@ const addTestsForConvertNumToRobogerSpeak = testManager => {
     expected: '9',
     args: [9],
   })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 10 into "Beep!"',
+    expected: 'Beep!',
+    args: [10],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 12 into "Boop!"',
+    expected: 'Boop!',
+    args: [12],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 13 into "Won\'t you be my neighbor?"',
+    expected: 'Won\'t you be my neighbor?',
+    args: [13],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 14 into "Beep!"',
+    expected: 'Beep!',
+    args: [14],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 21 into "Boop!"',
+    expected: 'Boop!',
+    args: [21],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 23 into "Won\'t you be my neighbor?"',
+    expected: 'Won\'t you be my neighbor?',
+    args: [23],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 32 into "Won\'t you be my neighbor?"',
+    expected: 'Won\'t you be my neighbor?',
+    args: [32],
+  })
+
+  testManager.addTest({
+    func: convertNumToRobogerSpeak,
+    description: 'It should turn 40 into "40"',
+    expected: '40',
+    args: [40],
+  })
 }
