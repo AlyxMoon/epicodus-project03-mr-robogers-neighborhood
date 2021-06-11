@@ -3,6 +3,19 @@ nav {
   border-bottom: 2px solid #3FB0AC;
 }
 
+.interrupt-wrapper {
+  opacity: 1;
+
+  transition-delay: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.interrupt-wrapper.hidden {
+  opacity: 0;
+  user-select: none;
+  visibility: hidden;
+}
+
 svg {
   width: 300px;
   height: 300px;

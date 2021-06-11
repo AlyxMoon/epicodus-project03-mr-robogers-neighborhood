@@ -31,13 +31,28 @@ const showOutputViaTypewriterEffect = async text => {
 
   let mouthStep = 0
   const animationStates = [
-    'M 38,55 C 38,65 65,60 65,55',
-    'M 37,56 C 37,66 67,60 65,54',
-    'M 36,57 C 38,67 68,60 65,53',
+    'M 38,55 C 38,65 65,60 65,53',
+    'M 37,56 C 37,66 67,60 65,52',
+    'M 36,57 C 38,67 68,60 65,51',
   ]
 
+  if (text.length > 50) {
+    $('.interrupt-wrapper').removeClass('hidden')
+  }
+
+  let interrupted = false
+  $('.interrupt-wrapper button').one('click', () => {
+    $(this).attr('disabled', '')
+    interrupted = true
+  })
+
   for (let i = 0; i < text.length; i++) {
-    $('#output').text(text.slice(0, i))
+    if (interrupted) {
+      text = text.slice(0, i) + ' ... oh okay, I\'ll stop :('
+      interrupted = false
+    }
+
+    $('#output').text(text.slice(0, i + 1))
 
     $('.robot-mouth').attr('d', animationStates[mouthStep])
     if (++mouthStep >= animationStates.length) mouthStep = 0
@@ -46,6 +61,8 @@ const showOutputViaTypewriterEffect = async text => {
     await waitFor(delay)
   }
 
+  $('.interrupt-wrapper').addClass('hidden')
+  $('.interrupt-wrapper button').removeAttr('disabled')
   $('.robot-mouth').attr('d', animationStates[0])
 }
 
