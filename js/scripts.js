@@ -1,5 +1,9 @@
 /* global $, TestManager, talkToUsMrRoboger, addTestsForConvertNumToRobogerSpeak, addTestsForTalkToUsMrRoboger */
 
+const waitFor = timeInMs => {
+  return new Promise(resolve => window.setTimeout(resolve, timeInMs))
+}
+
 const validateUserInput = (userInput) => {
   let message = ''
 
@@ -21,16 +25,74 @@ const validateUserInput = (userInput) => {
   return !message
 }
 
+const showOutputViaTypewriterEffect = async text => {
+  const minDelay = 50
+  const maxDelay = 150
+
+  let mouthStep = 0
+  const animationStates = [
+    'M 38,55 C 38,65 65,60 65,53',
+    'M 37,56 C 37,66 67,60 65,52',
+    'M 36,57 C 38,67 68,60 65,51',
+  ]
+
+  if (text.length > 50) {
+    $('.interrupt-wrapper').removeClass('hidden')
+  }
+
+  let interrupted = false
+  let handledInterrupted = false
+  $('.interrupt-wrapper button').one('click', () => {
+    $(this).attr('disabled', '')
+    interrupted = true
+  })
+
+  for (let i = 0; i < text.length; i++) {
+    if (interrupted && !handledInterrupted) {
+      text = text.slice(0, i) + ' ... oh okay, I\'ll stop :('
+      $('.robot-mouth').attr('d', 'M 34,61 C 38,53 63,50 65,57')
+      handledInterrupted = true
+    }
+
+    $('#output').text(text.slice(0, i + 1))
+
+    if (!interrupted) {
+      $('.robot-mouth').attr('d', animationStates[mouthStep])
+      if (++mouthStep >= animationStates.length) mouthStep = 0
+    }
+
+    const delay = Math.floor(Math.random() * (maxDelay - minDelay)) + minDelay
+    await waitFor(delay)
+  }
+
+  $('.interrupt-wrapper').addClass('hidden')
+  $('.interrupt-wrapper button').removeAttr('disabled')
+
+  if (!interrupted) {
+    $('.robot-mouth').attr('d', animationStates[0])
+  }
+}
+
 const handleUserInput = (testManager) => {
-  $('form').on('submit', (event) => {
+  let outputtingToUser = false
+
+  $('form').on('submit', async (event) => {
     event.preventDefault()
+    if (outputtingToUser) return
+
+    outputtingToUser = true
     $('#output').empty()
+    $('form input, form button').attr('disabled', '')
 
     const userInput = parseInt($('input', event.currentTarget).val())
 
     if (validateUserInput(userInput)) {
-      $('#output').text(talkToUsMrRoboger(userInput).join(' '))
+      const output = talkToUsMrRoboger(userInput).join(' ')
+      await showOutputViaTypewriterEffect(output)
     }
+
+    outputtingToUser = false
+    $('form input, form button').removeAttr('disabled')
   })
 
   $('#input-toggle-tests').on('change', (event) => {
