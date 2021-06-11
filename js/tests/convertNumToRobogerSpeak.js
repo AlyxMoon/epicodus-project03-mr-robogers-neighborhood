@@ -2,6 +2,8 @@
 
 /* eslint-disable-next-line no-unused-vars */
 const addTestsForConvertNumToRobogerSpeak = testManager => {
+  testManager.addSpacer('convertNumToRobogerSpeak()')
+
   testManager.addTest({
     func: convertNumToRobogerSpeak,
     description: 'It should turn 0 into "0"',

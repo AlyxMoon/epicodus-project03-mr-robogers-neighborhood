@@ -16,12 +16,19 @@ class TestManager {
       const actual = func(...args)
 
       return {
-        description: `${func.name}: ${description}`,
+        description: `${description}`,
         actual,
         expected,
         valid: this.checkActualEqualsExpected(actual, expected),
       }
     })
+  }
+
+  addSpacer (description = '') {
+    this.tests.push(() => ({
+      type: 'spacer',
+      description,
+    }))
   }
 
   runTests ({
@@ -56,16 +63,33 @@ class TestManager {
     container = '#output-tests',
     logToConsole = true,
   } = {}) {
+    if (result.type === 'spacer') {
+      if (logToConsole) {
+        console.log(
+          `%c${result.description}`,
+          'background-color: black; color: white; font-weight: bold; padding: 5px;',
+        )
+      }
+
+      if (container) {
+        $(`<li><h3>${result.description}</h3></li>`)
+          .appendTo(container)
+          .addClass('py-3 bg-dark text-light list-group-item')
+      }
+
+      return
+    }
+
     const incorrectText = `Incorrect | actual: ${result.actual} | expected: ${result.expected}`
 
     if (logToConsole) {
-      console.log(`%c ${result.description}`, 'font-weight: bold;')
+      console.log(`%c${result.description}`, 'font-weight: bold;')
 
       if (result.valid) {
-        console.log('%c -- passed!', 'background-color: green')
+        console.log('%c-- passed!', 'background-color: green')
       } else {
         console.log(
-          `%c -- ${incorrectText}`,
+          `%c-- ${incorrectText}`,
           'background-color: #290000',
         )
       }
