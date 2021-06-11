@@ -2,11 +2,5 @@
 
 /* eslint-disable-next-line no-unused-vars */
 function talkToUsMrRoboger (num) {
-  const responses = []
-
-  for (let i = 0; i <= num; i++) {
-    responses.push(convertNumToRobogerSpeak(i))
-  }
-
-  return responses
+  return [...Array(num + 1)].map((_, i) => convertNumToRobogerSpeak(i))
 }
