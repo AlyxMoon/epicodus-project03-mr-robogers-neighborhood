@@ -83,15 +83,6 @@
             </div>
           </form>
 
-          <div class="interrupt-wrapper hidden">
-            <div class="interrupt-wrapper-inner mt-3 input-group justify-content-end">
-              <span class="input-group-text bg-light">
-                Uh oh ... Mr Roboger might be talking for awhile.
-              </span>
-              <button class="btn btn-warning">Interrupt Mr Roboger</button>
-            </div>
-          </div>
-
           <hr />
 
           <div class="robot-wrapper d-flex flex-column flex-md-row">
@@ -168,7 +159,18 @@
               />
             </svg>
 
-            <div id="output" class="bg-light flex-grow-1 p-3"></div>
+            <div class="d-flex flex-column flex-grow-1 bg-light">
+              <div class="interrupt-wrapper p-3 hidden">
+                <div class="interrupt-wrapper-inner input-group">
+                  <span class="input-group-text bg-light">
+                    Uh oh ... Mr Roboger might be talking for awhile.
+                  </span>
+                  <button class="btn btn-warning">Interrupt Mr Roboger</button>
+                </div>
+              </div>
+              
+              <div id="output" class="bg-light flex-grow-1 p-3"></div>
+            </div>
           </div>
         </div>
       </div>
