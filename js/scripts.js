@@ -41,21 +41,25 @@ const showOutputViaTypewriterEffect = async text => {
   }
 
   let interrupted = false
+  let handledInterrupted = false
   $('.interrupt-wrapper button').one('click', () => {
     $(this).attr('disabled', '')
     interrupted = true
   })
 
   for (let i = 0; i < text.length; i++) {
-    if (interrupted) {
+    if (interrupted && !handledInterrupted) {
       text = text.slice(0, i) + ' ... oh okay, I\'ll stop :('
-      interrupted = false
+      $('.robot-mouth').attr('d', 'M 34,61 C 38,53 63,50 65,57')
+      handledInterrupted = true
     }
 
     $('#output').text(text.slice(0, i + 1))
 
-    $('.robot-mouth').attr('d', animationStates[mouthStep])
-    if (++mouthStep >= animationStates.length) mouthStep = 0
+    if (!interrupted) {
+      $('.robot-mouth').attr('d', animationStates[mouthStep])
+      if (++mouthStep >= animationStates.length) mouthStep = 0
+    }
 
     const delay = Math.floor(Math.random() * (maxDelay - minDelay)) + minDelay
     await waitFor(delay)
@@ -63,7 +67,10 @@ const showOutputViaTypewriterEffect = async text => {
 
   $('.interrupt-wrapper').addClass('hidden')
   $('.interrupt-wrapper button').removeAttr('disabled')
-  $('.robot-mouth').attr('d', animationStates[0])
+
+  if (!interrupted) {
+    $('.robot-mouth').attr('d', animationStates[0])
+  }
 }
 
 const handleUserInput = (testManager) => {
