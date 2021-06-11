@@ -26,6 +26,16 @@ Tests will be utilized to check behavior.
 3. No special tooling is required to preview the site when developing. You can either open the index.html file directly, or use any tool to start a develop server which serves the index.html for
    - for example, in VScode, open the command palette and search for `live server: open with live server`
 
+Optionally, you can set up your project to make use of `eslint`, which is a tool that parses your files to help find errors and enforce code style. You can configure VScode to read the eslint rules and present this information to you, and even fix mistakes when you save! However, since that set up may change on the user, I leave it up to you to figure out how to configure VScode (or whichever code editor you use) to use eslint.
+
+To set up `eslint` though, you need the following:
+1. Install `node.js` on your computer
+2. Install `npm` or `yarn` on your computer. The following instructions will assume you use `yarn`, and you'll have to look up how to do the commands in `npm` if you choose to use it instead.
+3. After you have this repository on your computer, open a command line in the root of this repository.
+4. Run `yarn` to install the dependencies, these can be found in the `package.json` file under `devDependencies`
+5. You can now run `yarn run lint` to manually lint your code and see any errors/warnings (this uses the script as defined in `package.json`)
+6. Optionally, if you have configured VScode to use linting, it will show you the rules directly in the file without having to do anything!
+
 ## Explanation of Code
 
 ## Objectives
