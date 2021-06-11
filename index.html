@@ -85,6 +85,50 @@
 
           <hr />
 
+          <div class="robot-wrapper">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <rect
+                class="robot-head-outer"
+                x="15" y="25"
+                width="70" height="50" rx="15" 
+                fill="none" stroke="#3FB0AC"
+                stroke-width="3%"
+              />
+
+              <rect
+                class="robot-head-inner"
+                x="25" y="36"
+                width="50" height="30" rx="10" 
+                fill="#3FB0AC33" stroke="#3FB0AC"
+                stroke-width="3%"
+              />
+
+              <circle
+                class="robot-eye-left"
+                cx="40" cy="48" r="3"
+              />
+              
+              <circle
+                class="robot-eye-right"
+                cx="60" cy="48" r="3"
+              />
+
+              <path
+                class="robot-mouth"
+                d="
+                  M 38,55
+                  C 38,65
+                    65,60
+                    65,55
+                "
+              />
+            </svg>
+          </div>
+
           <div id="output">
           </div>
         </div>

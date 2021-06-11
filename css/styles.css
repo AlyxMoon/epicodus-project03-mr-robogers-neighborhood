@@ -2,3 +2,8 @@
 nav {
   border-bottom: 2px solid #3FB0AC;
 }
+
+.robot-wrapper svg {
+  width: 300px;
+  height: 300px;
+}
