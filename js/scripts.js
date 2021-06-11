@@ -1,16 +1,9 @@
-/* global $, TestManager, convertNumToRobogerSpeak, talkToUsMrRoboger */
+/* global $, TestManager, addTestsForConvertNumToRobogerSpeak */
 
 const main = () => {
-  const testManager = new TestManager({
-    func: talkToUsMrRoboger,
-  })
+  const testManager = new TestManager()
 
-  testManager.addTest({
-    func: convertNumToRobogerSpeak,
-    description: 'It should turn 0 into "0"',
-    expected: '0',
-    args: [0],
-  })
+  addTestsForConvertNumToRobogerSpeak(testManager)
 
   testManager.runTests()
 }

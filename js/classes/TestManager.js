@@ -1,3 +1,5 @@
+/* global $ */
+
 /* eslint-disable-next-line no-unused-vars */
 class TestManager {
   constructor () {
@@ -43,6 +45,8 @@ class TestManager {
     container = '#output-tests',
     logToConsole = true,
   } = {}) {
+    const incorrectText = `Incorrect | actual: ${result.actual} | expected: ${result.expected}`
+
     if (logToConsole) {
       console.log(`%c ${result.description}`, 'font-weight: bold;')
 
@@ -50,14 +54,24 @@ class TestManager {
         console.log('%c -- passed!', 'background-color: green')
       } else {
         console.log(
-          `%c -- Incorrect | actual: ${result.actual} | expected: ${result.expected}`,
+          `%c -- ${incorrectText}`,
           'background-color: #290000',
         )
       }
     }
 
     if (container) {
-      // do stuff
+      const item = $('<li class="list-group-item text-light" />').appendTo(container)
+
+      item.append(`<h6 class="font-bold">${result.description}</h6>`)
+
+      if (result.valid) {
+        item.addClass('bg-success')
+      } else {
+        item
+          .addClass('bg-danger')
+          .append(`<p>${incorrectText}</p>`)
+      }
     }
   }
 }
