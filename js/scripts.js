@@ -54,22 +54,21 @@ const handleUserInput = (testManager) => {
 
   $('form').on('submit', async (event) => {
     event.preventDefault()
-
     if (outputtingToUser) return
+
     outputtingToUser = true
     $('#output').empty()
     $('form input, form button').attr('disabled', '')
 
     const userInput = parseInt($('input', event.currentTarget).val())
-    const output = talkToUsMrRoboger(userInput).join(' ')
 
     if (validateUserInput(userInput)) {
+      const output = talkToUsMrRoboger(userInput).join(' ')
       await showOutputViaTypewriterEffect(output)
     }
 
     outputtingToUser = false
     $('form input, form button').removeAttr('disabled')
-    $('#output').text(output)
   })
 
   $('#input-toggle-tests').on('change', (event) => {
