@@ -1,5 +1,9 @@
 /* global $, TestManager, talkToUsMrRoboger, addTestsForConvertNumToRobogerSpeak, addTestsForTalkToUsMrRoboger */
 
+const waitFor = timeInMs => {
+  return new Promise(resolve => window.setTimeout(resolve, timeInMs))
+}
+
 const validateUserInput = (userInput) => {
   let message = ''
 
@@ -21,16 +25,39 @@ const validateUserInput = (userInput) => {
   return !message
 }
 
+const showOutputViaTypewriterEffect = async text => {
+  const minDelay = 50
+  const maxDelay = 150
+
+  for (let i = 0; i < text.length; i++) {
+    $('#output').text(text.slice(0, i))
+
+    const delay = Math.floor(Math.random() * (maxDelay - minDelay)) + minDelay
+    await waitFor(delay)
+  }
+}
+
 const handleUserInput = (testManager) => {
-  $('form').on('submit', (event) => {
+  let outputtingToUser = false
+
+  $('form').on('submit', async (event) => {
     event.preventDefault()
+
+    if (outputtingToUser) return
+    outputtingToUser = true
     $('#output').empty()
+    $('form input, form button').attr('disabled', '')
 
     const userInput = parseInt($('input', event.currentTarget).val())
+    const output = talkToUsMrRoboger(userInput).join(' ')
 
     if (validateUserInput(userInput)) {
-      $('#output').text(talkToUsMrRoboger(userInput).join(' '))
+      await showOutputViaTypewriterEffect(output)
     }
+
+    outputtingToUser = false
+    $('form input, form button').removeAttr('disabled')
+    $('#output').text(output)
   })
 
   $('#input-toggle-tests').on('change', (event) => {
