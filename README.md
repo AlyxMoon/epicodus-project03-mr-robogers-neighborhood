@@ -40,6 +40,24 @@ To set up `eslint` though, you need the following:
 
 ## Explanation of Code
 
+The core functionality for the app (converting number to the requested string) can be found in the `js/lib` directory. I opted to break the function into two parts: 
+- function one (`convertNumToRobogerSpeak`) converts a single number into the desired string
+- function two (`talkToUsMrRoboger`) creates a list of strings by calling `convertNumToRobogerSpeak()`
+
+I have little desire for manually testing functionality, for that leads to mistakes and heartache. So I created a class (`js/classes/TestManager`) to help automate it. What this does is provides a way of adding any amount of tests, and manages the output. It can display to both the console and webpage, and currently is configured to do both.  
+
+The actual tests can be found in the `js/tests` directory. There are two helper functions which take a testManager class and then uses its `addTest` method to save each test. I set it up this way so there's the option of running tests on demand (as opposed to immediately when added), even though I'm really not making use of that possibility right now.  
+
+The main script file `js/scripts.js` uses both of those helper functions to add all the tests, then runs the tests immediately.
+
+In the UI, tests can be displayed by toggling the switch on the top right of the page ('Test Mode').
+
+The rest of the code deals with the input and output. I wanted to add a typing effect, so I created a function which only displays a single character at a time to the user, on a small delay. I thought it would be neat to have a randomized delay for realism, but getting a random interval weighted to a lower value (so there wouldn't be agonizing slow pauses sometimes) is something I never implemented. So the delay interval doesn't effect much.
+
+And lastly, I tried putting my extra effort towards adding "character" to the page. I am pretty strong on a technical level, but I lack design skills and am poor at adding all those little touches that make a page great. To that end, I made a robot on the page! I played with SVG's to add a simple robot design, and even animated it a bit by making use of the existing delay when updating text.
+
+Due to the text delay, typing a large number could involve a long wait. So I made a way to stop the output. This makes the robot sad though (I added character!).
+
 ## Objectives
 - JavaScript business logic and user interface logic are separate.
 - Tests are included for each behavior and code is committed after each test passes.
